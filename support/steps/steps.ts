@@ -1,4 +1,4 @@
-import {Given, When, Then, DataTable} from '@cucumber/cucumber';
+import {Given, When, Then, TableDefinition} from 'cucumber';
 import {CustomWorld} from '../CustomWorld';
 import { expect } from 'chai';
 import {TodosPage} from '../pages/TodosPage';
@@ -7,7 +7,7 @@ Given('an empty todo list', async function(this: CustomWorld) {
     await this.browser.navigate();
 });
 
-Given('a todo list with items:', async function(this: CustomWorld, todos: DataTable) {
+Given('a todo list with items:', async function(this: CustomWorld, todos: TableDefinition) {
     await this.browser.navigate();
     const todosPage = new TodosPage(this.browser);
     for (const todo of todos.raw().map(row => row[0])) {
@@ -32,7 +32,7 @@ Then('unnecessary controls are hidden', async function (this: CustomWorld) {
     expect(await todosPage.hasFooter()).to.be.false;
 });
 
-Then('the todos are:', async function (this: CustomWorld, todos: DataTable) {
+Then('the todos are:', async function (this: CustomWorld, todos: TableDefinition) {
     const todosPage = new TodosPage(this.browser);
     const items = await todosPage.listItems();
     expect(items).to.deep.eq(todos.raw().map(row => row[0]));

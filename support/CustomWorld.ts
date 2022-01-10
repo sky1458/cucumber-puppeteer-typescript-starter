@@ -1,14 +1,13 @@
-import {World, IWorldOptions} from '@cucumber/cucumber';
+import {World} from 'cucumber';
 import {BrowserDelegate} from './delegates/BrowserDelegate';
 import {CustomParameters, defaults} from './CustomParameters';
 import {merge} from 'lodash';
 
-export class CustomWorld extends World {
+export class CustomWorld implements World {
     readonly parameters: CustomParameters;
     readonly browser: BrowserDelegate;
 
-    constructor(options: IWorldOptions) {
-        super(options);
+    constructor(options: any) {
         this.parameters = CustomWorld.mixinParameters(options.parameters);
         this.browser = new BrowserDelegate(this);
     }
